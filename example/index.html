@@ -47,73 +47,18 @@
        * width 宽度
        * height 高度
        * */
+
         columns: [
-            {
-                label:"勾选", //列名
-                key:"checkBox",   //键名
-                sort:false, //是否排序
-                width:"5%",  //宽度
-                fixed:false, //是否锁定
-                format:function (row) {
-                    return  '<input type ="checkbox" rowid ="' + row.id + '">';
-                },
-            },
-            {
-                label:"顾客", //列名
-                key:"CustomerID",   //键名
-                sort:true, //是否排序
-                width:"14.28%",  //宽度
-                fixed:false, //是否锁定
-            },
-            {
-                label:"公司名", //列名
-                key:"CompanyName",   //键名
-                sort:true, //是否排序
-                width:"14.28%",  //宽度
-                fixed:false, //是否锁定
-            },
-            {
-                label:"联系人", //列名
-                key:"ContactName",   //键名
-                sort:true, //是否排序
-                width:"14.28%",  //宽度
-                fixed:false, //是否锁定
-
-            },
-            {
-                label:"地址", //列名
-                key:"Address",   //键名
-                sort:true, //是否排序
-                width:"14.28%",  //宽度
-                fixed:false, //是否锁定
-
-            },
-            {
-                label:"邮编", //列名
-                key:"PostalCode",   //键名
-                sort:true, //是否排序
-                fixed: false,
-                width:"14.28%",  //宽度
-
-            },
-            {
-                label:"城市", //列名
-                key:"City",   //键名
-                sort:false, //是否排序
-                width:"20%",  //宽度
-                fixed:false, //是否锁定
-            },
-            {
-                label:"操作", //列名
-                key:"do",   //键名
-                sort:false, //是否排序
-//                width:"10%",  //宽度
-                fixed:false, //是否锁定
-                format:function (row) {
-                    return  "<input type='text'/>"
-                }
-            },
-
+            { display: 'gouxuan', name: 'checkbox', align: 'left' ,render:function(row){
+                return  '<input type ="checkbox" rowid ="' + row.id + '">';
+            }},
+            { display: '顾客', name: 'CustomerID', align: 'left' },
+            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:false},
+            { display: '联系人', name: 'ContactName' },
+            { display: '地址', name: 'Address' },
+            { display: '邮编', name: 'PostalCode' },
+            { display: '城市', name: 'City' },
+            { display: '操作', name: 'do' ,render:function(){  return  "<input type='text'/>"}}
         ],
 
         source: {
@@ -169,12 +114,12 @@
             columns:
                     [
 
-                        { label: '订单序号', key: 'OrderID', width:100 },
-                        { label: '运费', key: 'Freight',  width:100 },
-                        { label: '收货人', key: 'ShipName' , width:100 },
-                        { label: '收货地址', key: 'ShipAddress' ,  width:100},
-                        { label: '收货城市', key: 'ShipCity' ,  width:100},
-                        { label: '收货国家', key: 'ShipCountry' ,  width:100}
+                        { display: '订单序号', name: 'OrderID', width:100 },
+                        { display: '运费', name: 'Freight',  width:100 },
+                        { display: '收货人', name: 'ShipName' , width:100 },
+                        { display: '收货地址', name: 'ShipAddress' ,  width:100},
+                        { display: '收货城市', name: 'ShipCity' ,  width:100},
+                        { display: '收货国家', name: 'ShipCountry' ,  width:100}
                     ],
             source: {
                 ajaxUrl:"./AllOrdersData.json" ,
@@ -212,10 +157,10 @@
     $("#maingrid2").datagrid({
 
         columns: [
-            { label: '部门名', key: 'name', id: 'id1', width: 250, align: 'left' },
-            { label: '部门标示', key: 'id', width: 250, type: 'int', align: 'left' },
+            { display: '部门名', name: 'name', id: 'id1', width: 250, align: 'left' },
+            { display: '部门标示', name: 'id', width: 250, type: 'int', align: 'left' },
 
-            { label: '部门描述', key: 'remark', width: 250, align: 'left' }
+            { display: '部门描述', name: 'remark', width: 250, align: 'left' }
         ],
         source: {
             ajaxUrl:"./tree.json" ,

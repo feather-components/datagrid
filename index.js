@@ -168,16 +168,16 @@
                 ligerObj.tree= this.default.ligerOpt.tree;
             }
 
-            console.log(ligerObj.tree,92929929292929);
+            // console.log(ligerObj.tree,92929929292929);
 
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);
 
             // delete this.default.ligerOpt.children;
             // console.log(this.default.ligerOpt);
 
-            for ( var i in this.default.ligerOpt.columns){
-                this.default.ligerOpt.columns[i]=_optToLigerOpt(this.default.ligerOpt.columns[i]);
-            }
+            // for ( var i in this.default.ligerOpt.columns){
+            //     this.default.ligerOpt.columns[i]=_optToLigerOpt(this.default.ligerOpt.columns[i]);
+            // }
 
         },
 
