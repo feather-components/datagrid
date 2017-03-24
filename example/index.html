@@ -5,8 +5,8 @@
     <!--<link rel="stylesheet" href="../liger-common.css">-->
     <!--<link rel="stylesheet" href="../ligerui-grid2.css">-->
     <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../../bower_components/pager/index.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="../cus/demo2.css">
+    <link rel="stylesheet" href="../bower_components/pager/index.css" media="screen" title="no title" charset="utf-8">
+    <!--<link rel="stylesheet" href="../cus/demo2.css">-->
     <title>Title</title>
 </head>
 <body>
@@ -21,8 +21,8 @@
 
 
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../bower_components/class/index.js"></script>
-<script type="text/javascript" src="../../bower_components/pager/index.js"></script>
+<script type="text/javascript" src="../bower_components/class/index.js"></script>
+<script type="text/javascript" src="../bower_components/pager/index.js"></script>
 <script src="../ligerui.all.js"></script>
 <!--<script type="text/javascript" src="demo2.js"></script>-->
 <!--<script type="text/javascript" src="demo2.1.js"></script>-->
@@ -137,21 +137,23 @@
             showDetail:function(row, detailPanel,callback){
                 f_showOrder(row, detailPanel,callback);
             },
-            height:"auto",
+            height:"500",
             closeDetail:function () {
 
             }
-        }
-
-//        scrollY:        100,
-//        scrollX:        true,
-//
-//        fixedColumns:[1,1],
+        },
+        pagerUse:false,
 
     }).on("datagrid:aftershowdata",function (event,data) {
         console.log(event,data,12345)
-    }).on("datagrid:onbeforeshowdata",function (event,data) {
+    }).on("datagrid:beforeshowdata",function (event,data) {
         console.log(event,data,23456)
+    }).on("datagrid:showDetail",function(){
+        console.log(112113123123123131);
+    }).on("datagrid:closeDetail",function(){
+        console.log(92829393893);
+    }).on("datagrid:selectrow",function(){
+        console.log(arguments,"selectrow");
     });
 
 
@@ -230,7 +232,7 @@
             perPager:"iPerPage",
             currentPageField:"iPager",
         },
-        width: '100%',tree: { columnId: 'id1', usePager:false},
+        width: '100%',tree: { columnId: 'id1', usePager:false},treeExtend:false
 
     })
 </script>

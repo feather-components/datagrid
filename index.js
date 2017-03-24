@@ -141,7 +141,10 @@
                     _self.trigger("aftershowdata",event,data);
                 },
                 onBeforeShowData:function(event,data){
-                    _self.trigger("onbeforeshowdata",event,data);
+                    _self.trigger("beforeshowdata",event,data);
+                },
+                onSelectRow:function(rowdata, rowid, rowobj){
+                    _self.trigger("selectrow",rowdata, rowid, rowobj);
                 }
                 // columnWidth: 100
             };
@@ -156,13 +159,16 @@
                     onCollapse:function(data){
                         _self.default.ligerOpt.children.closeDetail(event,data);
                         _self.trigger("closeDetail",event,data);
-                    }
+                    },
+                    height:_self.default.ligerOpt.children.height
                 };
             }
 
             if(_self.default.ligerOpt.tree!=undefined){
                 ligerObj.tree= this.default.ligerOpt.tree;
             }
+
+            console.log(ligerObj.tree,92929929292929);
 
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);
 
@@ -225,10 +231,8 @@
                         Rows:eval("data."+_self.opt.dataRowsField)
                     }:{Row:{}};
 
-                    console.log(_self.default.ligerOpt.tree,8888);
-
                     if(_self.default.ligerOpt.tree!=undefined){
-                        rows.Rows[0].isextend = false;
+                        rows.Rows[0].isextend = _self.opt.treeExtend;
                     }
 
                     _self.grid.set({data:rows});
@@ -244,8 +248,10 @@
                     _self.opt.pagerConfig.total=Math.ceil(eval("data."+_self.opt.totalField) / per);
                     _self.opt.pagerConfig.current=_self.opt.reqData[_self.opt.currentPagerField];
 
+                    if(_self.opt.pagerUse!==false){
+                        _self.createTablePager();
+                    }
 
-                    _self.createTablePager();
                 },
                 // error:function (XMLHttpRequest, textStatus, errorThrown) {
                 //     console.log(XMLHttpRequest, textStatus, errorThrown,7747474);
