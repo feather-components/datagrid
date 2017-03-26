@@ -4,13 +4,12 @@
 ;(function (factory) {
     if (typeof define == 'function' && define.amd) {
         //seajs or requirejs environment
-        define(['jquery', 'class', 'pager','./ligergrid.js'], factory);
+        define(['jquery', 'class', 'pager'], factory);
     } else if (typeof module === 'object' && typeof module.exports == 'object') {
         module.exports = factory(
             require('jquery'),
             require('class'),
-            require('pager'),
-            require('./ligergrid.js')
+            require('pager')
         );
     } else {
         factory(window.jQuery, window.jQuery.klass);
@@ -19,11 +18,23 @@
 
     var EVENTS=[],
         OPT_LIGER_FILTER_ARGS=['columns','height','children','tree'],
+        LIGER_COLUMNS_OPT_NAMES={
+            key:"name",
+            label:"display",
+            columns:"columns",
+            sort:"sort",
+            width:"width",
+            fixed:"frozen",
+            id:"id",
+            align:"align",
+            format:"render"
+            // headerFormat:"headerRender"，
+        },
         LIGER_OPT_NAMES=[];
 
     /*过滤参数
-    * @param {object} needFilter需要过滤的对象
-    * */
+     * @param {object} needFilter需要过滤的对象
+     * */
     function _handleFilterOptions(needFilter){
         var obj={};
 
@@ -36,11 +47,41 @@
         return obj;
     }
 
+    /*参数转换
+     * @param {object} 需要转换的对象
+     * */
+    //function _optToLigerOpt(changeObj){
+    //    var obj={};
+    //
+    //    for (var i in changeObj){
+    //        if(i=="columns"){
+    //            obj["columns"]=[];
+    //            if(changeObj[i].length>0){
+    //                for (var m in changeObj[i]){
+    //
+    //                    obj["columns"].push(_optToLigerOpt(changeObj[i][m]));
+    //                }
+    //            }else{
+    //                obj["columns"].push(changeObj["columns"]);
+    //            }
+    //        }else{
+    //            for(var k in LIGER_COLUMNS_OPT_NAMES){
+    //                if(i==k){
+    //                    obj[LIGER_COLUMNS_OPT_NAMES[k]]=changeObj[i];
+    //                }
+    //            }
+    //
+    //        }
+    //    }
+    //
+    //    return obj;
+    //}
+
     /*检查某个从参数是否为true
-    * @param {checkObj} 被检查的对象
-    * @param {field} 被检查的字段
-    * @param {field} 递归字段
-    * */
+     * @param {checkObj} 被检查的对象
+     * @param {field} 被检查的字段
+     * @param {field} 递归字段
+     * */
     function _checkObjFieldIsTrue (checkObj,field,colField){
         var fixed=false;
 
@@ -133,7 +174,16 @@
                 ligerObj.tree= this.default.ligerOpt.tree;
             }
 
+            // console.log(ligerObj.tree,92929929292929);
+
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);
+
+            // delete this.default.ligerOpt.children;
+            // console.log(this.default.ligerOpt);
+
+            // for ( var i in this.default.ligerOpt.columns){
+            //     this.default.ligerOpt.columns[i]=_optToLigerOpt(this.default.ligerOpt.columns[i]);
+            // }
 
         },
 
@@ -210,7 +260,7 @@
 
                 },
                  error:function (XMLHttpRequest, textStatus, errorThrown) {
-                     console.error(XMLHttpRequest, textStatus, errorThrown,"xhr_error");
+                     console.log(XMLHttpRequest, textStatus, errorThrown,7747474);
                  }
             })
         },
@@ -234,7 +284,15 @@
 
 
         /*销毁grid*/
-        destroy:function () {},
+        destroy:function () {
+
+        },
+
+        /*事件监听*/
+        handleEvent:function () {
+
+        }
+
 
     })
 
