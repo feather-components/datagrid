@@ -95,6 +95,7 @@
                 usePager:false,
                 headerRowHeight:42,
                 width: '100%',
+                frozenDetail:false,
                 // height: 500,
                 onAfterShowData:function(event,data){
                     /*增加排序的箭头*/
