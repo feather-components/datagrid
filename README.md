@@ -4,8 +4,8 @@
 将table常用功能进行整合，并且自动生成Table元素
 
 ## 安装
-    bower install feather-components/datagrid 
-    feather2 install feather-components/datagrid 
+    bower install feather-components/datagrid2 
+    feather2 install feather-components/datagrid2
     
 ## 引入
 普通引入
