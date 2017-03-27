@@ -63,12 +63,12 @@ feather2引入
                 iPager:4,
                 iPerPage:"12"
             },
-            dataRowsField:"List", 
-            dataTotalField:"Total",
-            perPager:"iPerPage",
-            currentPageField:"iPager",
-            sortColField:"colNames",
-            sortNameField:"sortNames"
+            dataRowsField:"List",   <!--数据字段名-->
+            dataTotalField:"Total", <!--数据总数名-->
+            perPager:"iPerPage",     <!--每页个数字段，可以直接写number类型的如：10-->
+            currentPageField:"iPager", <!--当前页字段-->
+            sortColField:"colNames",  <!--排序请求字段-->
+            sortNameField:"sortNames" <!--排序是否为正排序还是反排序字段-->
         },
 
 //        height:500,
