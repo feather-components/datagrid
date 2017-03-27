@@ -122,6 +122,10 @@ feather2引入
  datagrid2:selectrow |数据请求成功事件 |
  datagrid2:changepage |切换页码事件 |
 
+## 与datagrid区别
+
+可以展开明细，增加排序请求功能，树形结构表格
+
 
 
 
