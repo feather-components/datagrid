@@ -209,9 +209,17 @@
                         rows.Rows[0].isextend = _self.opt.treeExtend;
                     }
 
+                    /*判断是否为对象*/
+                    if(rows.Rows instanceof Object){
+                        var rowsArgs=[]
+                        for(var i in rows.Rows){
+                            rowsArgs.push(rows.Rows[i])
+                        }
+                        rows.Rows=rowsArgs;
+                    }
+
                     _self.grid.set({data:rows});
                     // _self.grid.loadData();
-
 
                     var per="";
                     if(parseInt(_self.opt.perPager)>0){
