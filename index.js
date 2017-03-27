@@ -148,6 +148,7 @@
 
             if(_self.default.ligerOpt.tree!=undefined){
                 ligerObj.tree= this.default.ligerOpt.tree;
+                ligerObj.tree.usePager=false;
             }
 
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);

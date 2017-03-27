@@ -648,15 +648,16 @@ table.l-filter-group-alt table.l-filter-group{background:white;margin-left:20px;
 */
 .l-grid-tree-space
 {
-    width:18px; height:20px; line-height:20px; overflow:hidden; float:left;
+    width:18px; height:20px; line-height:20px; overflow:hidden;margin:0 auto;float: left;
+    margin-top:11px;
 }
 .l-grid-tree-link-open
 {
-    cursor:pointer;background:url('../images/grid/grid-tree-open.gif') no-repeat center;
+    cursor:pointer;background:url('./img/jian.png') no-repeat;background-size: 15px;
 }
 .l-grid-tree-link-close
 {
-    cursor:pointer;background:url('../images/grid/grid-tree-close.gif') no-repeat center;
+    cursor:pointer;background:url('./img/add.png') no-repeat;background-size: 15px;
 }
 /*
     frozen grid

@@ -108,6 +108,8 @@ feather2引入
 | columns | / | Y | 详情参数请见ligerui的api的columns参数|
 | source | / | Y | 数据来源|
 | height | /| N | 高度|
+| tree | /| N | 参数（columnId第几列点击，使用方法参考example文件|
+| treeExtend | /| N | 默认是否展开 |
 
 ## 事件
 
