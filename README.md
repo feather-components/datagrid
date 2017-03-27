@@ -1,2 +1,132 @@
-# datagrid2
-datagrid重写
+# datagrid基于jquery.dataTable的插件
+
+## 说明
+将table常用功能进行整合，并且自动生成Table元素，结合legoland样式
+
+## 安装
+    bower install feather-components/datagrid 
+    feather2 install feather-components/datagrid 
+    
+## 引入
+普通引入
+
+```html
+    <link rel="stylesheet" href="../jquery.dataTables.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../bower_components/pager/index.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet/less" href="../bower_components/legoland/src/legoland.css" media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="../class/index.js"></script>
+    <script type="text/javascript" src="../pager/index.js"></script>
+    <script src="../jquery.dataTables.js"></script>
+    <script src="../dataTables.fixedColumns.js"></script>
+    <script src="../index.js"></script>
+```
+
+feather2引入
+由于已经引入'class','pager','legoland',"./dataTables.js","./dataTables.fixedColumns.min.js"，所以可用如下方式
+```html
+    require.ansyc("datagrid");
+
+```
+
+
+## 使用
+```html
+<div class="main">
+    <div id="maingrid" >
+    </div>
+</div>
+
+ $("#maingrid").datagrid2({
+       /*
+       * columns列参数
+       * source 数据
+       * children 详细列表
+       * height 高度
+       * enabledSort 是否排序
+       * */
+        columns: [
+            { display: 'gouxuan', name: 'checkbox', align: 'left' ,render:function(row){
+                return  '<input type ="checkbox" rowid ="' + row.id + '">';
+            }},
+            { display: '顾客', name: 'CustomerID', align: 'left' },
+            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:false},
+            { display: '联系人', name: 'ContactName' },
+            { display: '地址', name: 'Address' },
+            { display: '邮编', name: 'PostalCode' },
+            { display: '城市', name: 'City' },
+            { display: '操作', name: 'do' ,render:function(){  return  "<input type='text'/>"}}
+        ],
+
+        source: {
+            ajaxUrl:"./a.json" ,
+            type:"post",
+            requestData: {
+                a:"qeqwe",
+                id:"555",
+                name:"55kai",
+                iPager:4,
+                iPerPage:"12"
+            },
+            dataRowsField:"List", 
+            dataTotalField:"Total",
+            perPager:"iPerPage",
+            currentPageField:"iPager",
+            sortColField:"colNames",
+            sortNameField:"sortNames"
+        },
+
+//        height:500,
+        children:{
+            showDetail:function(row, detailPanel,callback){
+                f_showOrder(row, detailPanel,callback);
+            },
+//            height:"500",
+            closeDetail:function () {
+
+            }
+        },
+//        enabledSort:false
+
+    }).on("datagrid2:aftershowdata",function (event,data) {
+        console.log(event,data,12345)
+    }).on("datagrid2:beforeshowdata",function (event,data) {
+        console.log(event,data,23456)
+    }).on("datagrid2:showDetail",function(){
+        console.log(112113123123123131);
+    }).on("datagrid2:closeDetail",function(){
+        console.log(92829393893);
+    }).on("datagrid2:selectrow",function(){
+        console.log(arguments,"selectrow");
+    }).on("datagrid2:changesort",function(){
+        console.log(arguments,"changesort");
+    }).on("datagrid2:xhrsuccess",function(){
+        console.log(arguments,"xhrsuccess");
+    });
+
+```
+
+## 选项
+
+| 选项 | 默认值 | 必填 | 说明 |
+|----------|----------|----------|----------|
+| columns | / | Y | 详情参数请见ligerui的api的columns参数|
+| source | / | Y | 数据来源|
+| height | /| N | 高度|
+
+## 事件
+
+| 事件 | 说明 |
+|----------|----------|
+| datagrid2:aftershowdata | 渲染之后事件 |
+|datagrid2:beforeshowdata| 渲染之前 |
+ datagrid:showDetail | 展示明细事件s)|
+ datagrid2:closeDetail |关闭明细事件 |
+ datagrid2:selectrow |选择行事件 |
+ datagrid2:selectrow |改变排序事件 |
+ datagrid2:selectrow |数据请求成功事件 |
+ datagrid2:changepage |切换页码事件 |
+
+
+
+

@@ -227,6 +227,7 @@
                 .pager(_self.opt.pagerConfig)
                 .off("pager:switch")
                 .on("pager:switch", function (event, index) {
+                    _self.trigger('changepage', event,index);
                     _self.opt.reqData[_self.opt.currentPagerField]=index;
                     _self.getTableData();
                 })

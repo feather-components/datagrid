@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="main">
-    <div id="maingrid" style="margin: 0; padding: 0">
+    <div id="maingrid" >
     </div>
 </div>
 <div class="main">
@@ -36,18 +36,11 @@
     $("#maingrid").datagrid2({
        /*
        * columns列参数
-       * isScroll 是否滚动
-       * data 数据
-       * headerRowHeight 头部高度
-       * rowHeight 行高度
-       * fixedCellHeight 锁定咧高度
-       * usePager 为false
-       * showToggleColBtn 初始化是否展开
-       * sort 排序
-       * width 宽度
+       * source 数据
+       * children 详细列表
        * height 高度
+       * enabledSort 是否排序
        * */
-
         columns: [
             { display: 'gouxuan', name: 'checkbox', align: 'left' ,render:function(row){
                 return  '<input type ="checkbox" rowid ="' + row.id + '">';
@@ -89,7 +82,6 @@
 
             }
         },
-        pagerUse:false,
 //        enabledSort:false
 
     }).on("datagrid2:aftershowdata",function (event,data) {
