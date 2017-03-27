@@ -1,7 +1,7 @@
-# datagrid基于jquery.dataTable的插件
+# datagrid基于jquery.ligerui/ligergrid的插件
 
 ## 说明
-将table常用功能进行整合，并且自动生成Table元素，结合legoland样式
+将table常用功能进行整合，并且自动生成Table元素
 
 ## 安装
     bower install feather-components/datagrid 
@@ -11,22 +11,17 @@
 普通引入
 
 ```html
-    <link rel="stylesheet" href="../jquery.dataTables.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../bower_components/pager/index.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet/less" href="../bower_components/legoland/src/legoland.css" media="screen" title="no title" charset="utf-8">
-
-    <script type="text/javascript" src="../class/index.js"></script>
-    <script type="text/javascript" src="../pager/index.js"></script>
-    <script src="../jquery.dataTables.js"></script>
-    <script src="../dataTables.fixedColumns.js"></script>
-    <script src="../index.js"></script>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="../bower_components/class/index.js"></script>
+<script type="text/javascript" src="../bower_components/pager/index.js"></script>
+<script src="../ligergrid.js"></script>
 ```
 
 feather2引入
-由于已经引入'class','pager','legoland',"./dataTables.js","./dataTables.fixedColumns.min.js"，所以可用如下方式
 ```html
-    require.ansyc("datagrid");
-
+    require.ansyc("datagrid2");
 ```
 
 
