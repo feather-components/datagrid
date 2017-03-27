@@ -390,15 +390,16 @@ table.l-filter-group-alt table.l-filter-group{background:white;margin-left:20px;
 }
 .l-grid-hd-cell-sort
 {
-    overflow:hidden;
+    overflow:hidden; width:15px;display:inline-block;float: right;background-repeat:no-repeat ;
+    background-position: 0 15px;
 }
 .l-grid-hd-cell-sort-asc
 {
-    background:url('../images/icon/icon-sort-asc.gif') no-repeat center;
+    background-image:url('./img/up.png') ;background-size:12px 12px ;
 }
 .l-grid-hd-cell-sort-desc
 {
-    background:url('../images/icon/icon-sort-desc.gif') no-repeat center;
+    background-image:url('./img/down.png');background-size:20px 20px ;background-position: -5px 12px;
 }
 .l-grid-hd-cell-btn
 {
@@ -504,12 +505,13 @@ table.l-filter-group-alt table.l-filter-group{background:white;margin-left:20px;
 .l-grid-row-cell-detail .l-grid-row-cell-inner{margin-left:0px; margin-right:0px; width:27px; overflow:hidden;}
 .l-grid-row-cell-detail .l-grid-row-cell-inner span
 {
-    display:block; width:21px; height:21px; background:url('../images/grid/grid-detail-close.gif') no-repeat 5px 5px;
+    display:block; width:15px; height:15px; background:url('./img/add.png') no-repeat;
+    background-size:cover ;margin:10px auto;
     cursor:pointer; overflow:hidden;
 }
 .l-grid-row-cell-detail .l-grid-row-cell-inner span.l-open
 {
-    background:url('../images/grid/grid-detail-open.gif') no-repeat 5px 5px;
+    background:url('./img/jian.png') no-repeat;background-size:cover ;
 }
 
 .l-grid-row-cell-checkbox .l-grid-row-cell-inner{margin-left:0px; margin-right:0px;}

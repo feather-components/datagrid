@@ -97,6 +97,14 @@
                 width: '100%',
                 // height: 500,
                 onAfterShowData:function(event,data){
+                    /*增加排序的箭头*/
+                    if(_self.default.ligerOpt.enabledSort!==false){
+                        _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
+                            if( $(dom).find(".l-grid-hd-cell-inner").find(".l-grid-hd-cell-sort").length==0){
+                                $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                            }
+                        });
+                    }
                     _self.trigger("aftershowdata",event,data);
                 },
                 onBeforeShowData:function(event,data){
@@ -106,6 +114,15 @@
                     _self.trigger("selectrow",rowdata, rowid, rowobj);
                 },
                 onChangeSort:function(colName,sortName){
+                    /*删除排序的箭头*/
+                    if(_self.default.ligerOpt.enabledSort!==false){
+                        _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
+                            if($(dom).attr("columnname")==colName){
+                                $(dom).find(".l-grid-hd-cell-inner").remove('.l-grid-hd-cell-sort');
+                            }
+                        });
+                    }
+
                     _self.opt.reqData[ _self.opt.source.sortColField]=colName;
                     _self.opt.reqData[ _self.opt.source.sortNameField]=sortName;
                     _self.trigger("changesort",colName, sortName);
@@ -166,7 +183,6 @@
             this.checkColumnsFixed();
 
             _self.getTableData();
-
         },
 
         /*ajax请求 */
@@ -193,6 +209,7 @@
 
                     _self.grid.set({data:rows});
                     // _self.grid.loadData();
+
 
                     var per="";
                     if(parseInt(_self.opt.perPager)>0){
