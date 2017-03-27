@@ -33,7 +33,7 @@
 <script src="../index.js"></script>
 
 <script>
-    $("#maingrid").datagrid({
+    $("#maingrid").datagrid2({
        /*
        * columns列参数
        * isScroll 是否滚动
@@ -79,31 +79,32 @@
             sortNameField:"sortNames"
         },
 
-        height:500,
+//        height:500,
         children:{
             showDetail:function(row, detailPanel,callback){
                 f_showOrder(row, detailPanel,callback);
             },
-            height:"500",
+//            height:"500",
             closeDetail:function () {
 
             }
         },
         pagerUse:false,
+//        enabledSort:false
 
-    }).on("datagrid:aftershowdata",function (event,data) {
+    }).on("datagrid2:aftershowdata",function (event,data) {
         console.log(event,data,12345)
-    }).on("datagrid:beforeshowdata",function (event,data) {
+    }).on("datagrid2:beforeshowdata",function (event,data) {
         console.log(event,data,23456)
-    }).on("datagrid:showDetail",function(){
+    }).on("datagrid2:showDetail",function(){
         console.log(112113123123123131);
-    }).on("datagrid:closeDetail",function(){
+    }).on("datagrid2:closeDetail",function(){
         console.log(92829393893);
-    }).on("datagrid:selectrow",function(){
+    }).on("datagrid2:selectrow",function(){
         console.log(arguments,"selectrow");
-    }).on("datagrid:changesort",function(){
+    }).on("datagrid2:changesort",function(){
         console.log(arguments,"selectrow");
-    }).on("datagrid:xhrsuccess",function(){
+    }).on("datagrid2:xhrsuccess",function(){
         console.log(arguments,"selectrow");
     });
 
@@ -160,7 +161,7 @@
     }
 
 
-    $("#maingrid2").datagrid({
+    $("#maingrid2").datagrid2({
 
         columns: [
             { display: '部门名', name: 'name', id: 'id1', width: 250, align: 'left' },

@@ -18,7 +18,7 @@
 })(function ($, Class) {
 
     var EVENTS=[],
-        OPT_LIGER_FILTER_ARGS=['columns','height','children','tree'],
+        OPT_LIGER_FILTER_ARGS=['columns','height','children','tree','enabledSort'],
         LIGER_OPT_NAMES=[];
 
     /*过滤参数
@@ -39,7 +39,7 @@
     /*检查某个从参数是否为true
     * @param {checkObj} 被检查的对象
     * @param {field} 被检查的字段
-    * @param {field} 递归字段
+    * @param {colField} 递归字段
     * */
     function _checkObjFieldIsTrue (checkObj,field,colField){
         var fixed=false;
@@ -57,7 +57,7 @@
     }
 
 
-    return Class.$factory('datagrid', {
+    return Class.$factory('datagrid2', {
 
         initialize:function (option) {
             this.ele=$(option.dom);
