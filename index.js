@@ -72,19 +72,28 @@
             this.grid="";
             this.default={
                 ligerOpt:{},
-                reqData:option.source.requestData||{},
-                url:option.source.ajaxUrl||"",
-                type:option.source.type||"",
-                totalField:option.source.dataTotalField||"",
-                perPager:option.source.perPager||"",
-                currentPagerField:option.source.currentPageField||"",
-                dataRowsField:option.source.dataRowsField||"",
                 pagerConfig:{
                     total: "",
                     current: "",
                     showFirstBtn: false
-                }
+                },
             };
+            if(option.source!=undefined){
+                var sourceObj={
+                    reqData:option.source.requestData||{},
+                    url:option.source.ajaxUrl||"",
+                    type:option.source.type||"",
+                    totalField:option.source.dataTotalField||"",
+                    perPager:option.source.perPager||"",
+                    currentPagerField:option.source.currentPageField||"",
+                    dataRowsField:option.source.dataRowsField||"",
+                };
+
+                this.default = $.extend({}, this.default,sourceObj);
+            }else{
+                this.default = $.extend({}, this.default,{staticData:option.data});
+            }
+
 
             this.default.ligerOpt=_handleFilterOptions(option);
 
@@ -110,7 +119,7 @@
                     /*增加排序的箭头*/
                         _self.default.ligerOpt.columns.forEach(function(v,k){
                             var sort=v.isSort;
-                            console.log(sort);
+                            
                             if(v.isSort){
                                 _self.ele.find(".l-grid-header-inner td").each(function(index,dom){
                                     if(v.columnname==$(dom).attr("columnname")&&$(dom).find(".l-grid-hd-cell-sort").length==0){
@@ -206,56 +215,70 @@
         /*ajax请求 */
         getTableData:function(){
             var  _self= this ;
-
-            $.ajax({
-                url:_self.opt.url,
-                type:_self.opt.type,
-                data:_self.opt.reqData,
-                dataType:"json",
-                success:function(data){
-
-                    _self.trigger('xhrsuccess',data);
-
-                    var dataRow=_self.opt.dataRowsField!=undefined?_self.opt.dataRowsField:"";
-                    var rows =dataRow!=""?{
-                        Rows:eval("data."+_self.opt.dataRowsField)
-                    }:{Row:{}};
-
-                    if(_self.default.ligerOpt.tree!=undefined){
-                        rows.Rows[0].isextend = _self.opt.treeExtend;
+            if(_self.opt.staticData!=undefined){
+                var rows={Rows:_self.opt.staticData};
+                if(rows.Rows instanceof Object){
+                    var rowsArgs=[];
+                    for(var i in rows.Rows){
+                        rowsArgs.push(rows.Rows[i]);
                     }
+                    rows.Rows=rowsArgs;
+                }
+                _self.grid.set({data:rows});
+            }else{
 
-                    /*判断是否为对象*/
-                    if(rows.Rows instanceof Object){
-                        var rowsArgs=[]
-                        for(var i in rows.Rows){
-                            rowsArgs.push(rows.Rows[i])
+                $.ajax({
+                    url:_self.opt.url,
+                    type:_self.opt.type,
+                    data:_self.opt.reqData,
+                    dataType:"json",
+                    success:function(data){
+
+                        _self.trigger('xhrsuccess',data);
+
+                        var dataRow=_self.opt.dataRowsField!=undefined?_self.opt.dataRowsField:"";
+                        var rows =dataRow!=""?{
+                            Rows:eval("data."+_self.opt.dataRowsField)
+                        }:{Row:{}};
+
+                        if(_self.default.ligerOpt.tree!=undefined){
+                            rows.Rows[0].isextend = _self.opt.treeExtend;
                         }
-                        rows.Rows=rowsArgs;
+
+                        /*判断是否为对象*/
+                        if(rows.Rows instanceof Object){
+                            var rowsArgs=[];
+                            for(var i in rows.Rows){
+                                rowsArgs.push(rows.Rows[i]);
+                            }
+                            rows.Rows=rowsArgs;
+                        }
+
+                        _self.grid.set({data:rows});
+                        // _self.grid.loadData();
+
+                        var per="";
+                        if(parseInt(_self.opt.perPager)>0){
+                            per=_self.opt.perPager;
+                        }else{
+                            per=_self.opt.reqData[_self.opt.perPager];
+                        }
+
+                        _self.opt.pagerConfig.total=Math.ceil(eval("data."+_self.opt.totalField) / per);
+                        _self.opt.pagerConfig.current=_self.opt.reqData[_self.opt.currentPagerField];
+
+                        if(_self.opt.pagerUse!==false){
+                            _self.createTablePager();
+                        }
+
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.error(XMLHttpRequest, textStatus, errorThrown,"xhr_error");
                     }
+                });
 
-                    _self.grid.set({data:rows});
-                    // _self.grid.loadData();
+            }
 
-                    var per="";
-                    if(parseInt(_self.opt.perPager)>0){
-                        per=_self.opt.perPager;
-                    }else{
-                        per=_self.opt.reqData[_self.opt.perPager];
-                    }
-
-                    _self.opt.pagerConfig.total=Math.ceil(eval("data."+_self.opt.totalField) / per);
-                    _self.opt.pagerConfig.current=_self.opt.reqData[_self.opt.currentPagerField];
-
-                    if(_self.opt.pagerUse!==false){
-                        _self.createTablePager();
-                    }
-
-                },
-                 error:function (XMLHttpRequest, textStatus, errorThrown) {
-                     console.error(XMLHttpRequest, textStatus, errorThrown,"xhr_error");
-                 }
-            })
         },
 
 

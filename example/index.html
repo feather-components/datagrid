@@ -25,7 +25,7 @@
 <script type="text/javascript" src="../bower_components/pager/index.js"></script>
 <script src="../ligergrid.js"></script>
 <!--<script type="text/javascript" src="demo2.js"></script>-->
-<!--<script type="text/javascript" src="demo2.1.js"></script>-->
+<script type="text/javascript" src="demo2.1.js"></script>
 <!--<script type="text/javascript" src="demo1.js"></script>-->
 <!--<script type="text/javascript" src="treeData.js"></script>-->
 <!--<script type="text/javascript" src="AllOrdersData.js"></script>-->
@@ -54,23 +54,24 @@
             { display: '操作', name: 'do' ,render:function(){  return  "<input type='text'/>"}}
         ],
 
-        source: {
-            ajaxUrl:"./a.json" ,
-            type:"post",
-            requestData: {
-                a:"qeqwe",
-                id:"555",
-                name:"55kai",
-                iPager:4,
-                iPerPage:"12"
-            },
-            dataRowsField:"List",
-            dataTotalField:"Total",
-            perPager:"iPerPage",
-            currentPageField:"iPager",
-            sortColField:"colNames",
-            sortNameField:"sortNames"
-        },
+//        source: {
+//            ajaxUrl:"./a.json" ,
+//            type:"post",
+//            requestData: {
+//                a:"qeqwe",
+//                id:"555",
+//                name:"55kai",
+//                iPager:4,
+//                iPerPage:"12"
+//            },
+//            dataRowsField:"List",
+//            dataTotalField:"Total",
+//            perPager:"iPerPage",
+//            currentPageField:"iPager",
+//            sortColField:"colNames",
+//            sortNameField:"sortNames"
+//        },
+        data:CustomersData2.Rows,
 
 //        height:500,
         children:{
@@ -137,6 +138,7 @@
                 perPager:"iPerPage",
                 currentPageField:"iPager",
             },
+            isPager:false
 
         });
 //        $(grid).css('margin',10).ligerGrid({
