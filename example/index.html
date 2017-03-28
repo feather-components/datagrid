@@ -82,6 +82,8 @@
 
             }
         },
+
+//        isPager:false,
 //        enabledSort:false
 
     }).on("datagrid2:aftershowdata",function (event,data) {
@@ -96,8 +98,8 @@
         console.log(arguments,"selectrow");
     }).on("datagrid2:changesort",function(){
         console.log(arguments,"selectrow");
-    }).on("datagrid2:xhrsuccess",function(){
-        console.log(arguments,"selectrow");
+    }).on("datagrid2:xhrsuccess",function(event,data,a){
+        console.log(event,data,a,"selectrow");
     });
 
 

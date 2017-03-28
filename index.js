@@ -198,7 +198,7 @@
                 dataType:"json",
                 success:function(data){
 
-                    _self.trigger('xhrsuccess', data);
+                    _self.trigger('xhrsuccess',data);
 
                     var dataRow=_self.opt.dataRowsField!=undefined?_self.opt.dataRowsField:"";
                     var rows =dataRow!=""?{
@@ -246,18 +246,22 @@
         /*创建pager*/
         createTablePager:function(){
             var _self=this;
-            if(_self.ele.children(".pager").length==0){
-                _self.ele.append("<div class='pager'></div>");
+            var isPager=_self.opt.isPager!=undefined?_self.opt.isPager:true;
+            if(isPager ){
+                if(_self.ele.children(".pager").length==0){
+                    _self.ele.append("<div class='pager'></div>");
+                }
+
+                _self.ele.find(".pager")
+                    .pager(_self.opt.pagerConfig)
+                    .off("pager:switch")
+                    .on("pager:switch", function (event, index) {
+                        _self.trigger('changepage', event,index);
+                        _self.opt.reqData[_self.opt.currentPagerField]=index;
+                        _self.getTableData();
+                    })
             }
 
-            _self.ele.find(".pager")
-                .pager(_self.opt.pagerConfig)
-                .off("pager:switch")
-                .on("pager:switch", function (event, index) {
-                    _self.trigger('changepage', event,index);
-                    _self.opt.reqData[_self.opt.currentPagerField]=index;
-                    _self.getTableData();
-                })
         },
 
 
