@@ -56,6 +56,14 @@
         return fixed;
     }
 
+    /*
+    * 处理columns,查看是否有排序
+    * */
+
+    function _checkColumnsIsSort(obj){
+
+    }
+
 
     return Class.$factory('datagrid2', {
 
@@ -87,7 +95,7 @@
             this.createDataGrid();
         },
 
-        /*处理参数columns*/
+        /*处理liger参数*/
         handleOptColumns:function(){
             var _self=this;
             var ligerObj={
@@ -98,14 +106,20 @@
                 frozenDetail:false,
                 // height: 500,
                 onAfterShowData:function(event,data){
+
                     /*增加排序的箭头*/
-                    if(_self.default.ligerOpt.enabledSort!==false){
-                        _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
-                            if( $(dom).find(".l-grid-hd-cell-inner").find(".l-grid-hd-cell-sort").length==0){
-                                $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                        _self.default.ligerOpt.columns.forEach(function(v,k){
+                            var sort=v.isSort;
+                            console.log(sort);
+                            if(v.isSort){
+                                _self.ele.find(".l-grid-header-inner td").each(function(index,dom){
+                                    if(v.columnname==$(dom).attr("columnname")&&$(dom).find(".l-grid-hd-cell-sort").length==0){
+                                        $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                                    }
+                                });
                             }
                         });
-                    }
+
                     _self.trigger("aftershowdata",event,data);
                 },
                 onBeforeShowData:function(event,data){
@@ -115,14 +129,13 @@
                     _self.trigger("selectrow",rowdata, rowid, rowobj);
                 },
                 onChangeSort:function(colName,sortName){
+
                     /*删除排序的箭头*/
-                    if(_self.default.ligerOpt.enabledSort!==false){
-                        _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
-                            if($(dom).attr("columnname")==colName){
-                                $(dom).find(".l-grid-hd-cell-inner").remove('.l-grid-hd-cell-sort');
-                            }
-                        });
-                    }
+                    _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
+                        if($(dom).attr("columnname")==colName){
+                            $(dom).find(".l-grid-hd-cell-inner").remove('.l-grid-hd-cell-sort');
+                        }
+                    });
 
                     _self.opt.reqData[ _self.opt.source.sortColField]=colName;
                     _self.opt.reqData[ _self.opt.source.sortNameField]=sortName;
@@ -152,7 +165,10 @@
                 ligerObj.tree.usePager=false;
             }
 
+
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);
+
+
 
         },
 

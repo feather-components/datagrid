@@ -4,12 +4,13 @@
 ;(function (factory) {
     if (typeof define == 'function' && define.amd) {
         //seajs or requirejs environment
-        define(['jquery', 'class', 'pager'], factory);
+        define(['jquery', 'class', 'pager','./ligergrid.js'], factory);
     } else if (typeof module === 'object' && typeof module.exports == 'object') {
         module.exports = factory(
             require('jquery'),
             require('class'),
-            require('pager')
+            require('pager'),
+            require('./ligergrid.js')
         );
     } else {
         factory(window.jQuery, window.jQuery.klass);
@@ -17,19 +18,7 @@
 })(function ($, Class) {
 
     var EVENTS=[],
-        OPT_LIGER_FILTER_ARGS=['columns','height','children','tree'],
-        LIGER_COLUMNS_OPT_NAMES={
-            key:"name",
-            label:"display",
-            columns:"columns",
-            sort:"sort",
-            width:"width",
-            fixed:"frozen",
-            id:"id",
-            align:"align",
-            format:"render"
-            // headerFormat:"headerRender"，
-        },
+        OPT_LIGER_FILTER_ARGS=['columns','height','children','tree','enabledSort'],
         LIGER_OPT_NAMES=[];
 
     /*过滤参数
@@ -47,40 +36,10 @@
         return obj;
     }
 
-    /*参数转换
-     * @param {object} 需要转换的对象
-     * */
-    //function _optToLigerOpt(changeObj){
-    //    var obj={};
-    //
-    //    for (var i in changeObj){
-    //        if(i=="columns"){
-    //            obj["columns"]=[];
-    //            if(changeObj[i].length>0){
-    //                for (var m in changeObj[i]){
-    //
-    //                    obj["columns"].push(_optToLigerOpt(changeObj[i][m]));
-    //                }
-    //            }else{
-    //                obj["columns"].push(changeObj["columns"]);
-    //            }
-    //        }else{
-    //            for(var k in LIGER_COLUMNS_OPT_NAMES){
-    //                if(i==k){
-    //                    obj[LIGER_COLUMNS_OPT_NAMES[k]]=changeObj[i];
-    //                }
-    //            }
-    //
-    //        }
-    //    }
-    //
-    //    return obj;
-    //}
-
     /*检查某个从参数是否为true
      * @param {checkObj} 被检查的对象
      * @param {field} 被检查的字段
-     * @param {field} 递归字段
+     * @param {colField} 递归字段
      * */
     function _checkObjFieldIsTrue (checkObj,field,colField){
         var fixed=false;
@@ -97,8 +56,16 @@
         return fixed;
     }
 
+    /*
+     * 处理columns,查看是否有排序
+     * */
 
-    return Class.$factory('datagrid', {
+    function _checkColumnsIsSort(obj){
+
+    }
+
+
+    return Class.$factory('datagrid2', {
 
         initialize:function (option) {
             this.ele=$(option.dom);
@@ -128,7 +95,7 @@
             this.createDataGrid();
         },
 
-        /*处理参数columns*/
+        /*处理liger参数*/
         handleOptColumns:function(){
             var _self=this;
             var ligerObj={
@@ -136,8 +103,34 @@
                 usePager:false,
                 headerRowHeight:42,
                 width: '100%',
+                frozenDetail:false,
                 // height: 500,
                 onAfterShowData:function(event,data){
+                    console.log(_self.default.ligerOpt,888);
+                    /*增加排序的箭头*/
+                    // if(_self.default.ligerOpt.enabledSort!==false){
+
+                    _self.default.ligerOpt.columns.forEach(function(v,k){
+                        var sort=v.isSort;
+                        console.log(sort);
+                        if(v.isSort){
+                            _self.ele.find(".l-grid-header-inner td").each(function(index,dom){
+                                if(v.columnname==$(dom).attr("columnname")&&$(dom).find(".l-grid-hd-cell-sort").length==0){
+                                    $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                                }
+                            });
+
+                            // _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
+
+                            // if( $(dom).find(".l-grid-hd-cell-inner").find(".l-grid-hd-cell-sort").length==0){
+                            //     $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                            // }
+                            // });
+                        }
+
+                    });
+
+                    // }
                     _self.trigger("aftershowdata",event,data);
                 },
                 onBeforeShowData:function(event,data){
@@ -147,6 +140,17 @@
                     _self.trigger("selectrow",rowdata, rowid, rowobj);
                 },
                 onChangeSort:function(colName,sortName){
+
+
+                    /*删除排序的箭头*/
+                    // if(_self.default.ligerOpt.enabledSort!==false){
+                    _self.ele.find(".l-grid-hd-cell").each(function(index,dom){
+                        if($(dom).attr("columnname")==colName){
+                            $(dom).find(".l-grid-hd-cell-inner").remove('.l-grid-hd-cell-sort');
+                        }
+                    });
+                    // }
+
                     _self.opt.reqData[ _self.opt.source.sortColField]=colName;
                     _self.opt.reqData[ _self.opt.source.sortNameField]=sortName;
                     _self.trigger("changesort",colName, sortName);
@@ -172,18 +176,13 @@
 
             if(_self.default.ligerOpt.tree!=undefined){
                 ligerObj.tree= this.default.ligerOpt.tree;
+                ligerObj.tree.usePager=false;
             }
 
-            // console.log(ligerObj.tree,92929929292929);
 
             this.default.ligerOpt= $.extend(true,{}, this.default.ligerOpt,ligerObj);
 
-            // delete this.default.ligerOpt.children;
-            // console.log(this.default.ligerOpt);
 
-            // for ( var i in this.default.ligerOpt.columns){
-            //     this.default.ligerOpt.columns[i]=_optToLigerOpt(this.default.ligerOpt.columns[i]);
-            // }
 
         },
 
@@ -216,7 +215,6 @@
             this.checkColumnsFixed();
 
             _self.getTableData();
-
         },
 
         /*ajax请求 */
@@ -230,7 +228,7 @@
                 dataType:"json",
                 success:function(data){
 
-                    _self.trigger('xhrsuccess', data);
+                    _self.trigger('xhrsuccess',data);
 
                     var dataRow=_self.opt.dataRowsField!=undefined?_self.opt.dataRowsField:"";
                     var rows =dataRow!=""?{
@@ -239,6 +237,15 @@
 
                     if(_self.default.ligerOpt.tree!=undefined){
                         rows.Rows[0].isextend = _self.opt.treeExtend;
+                    }
+
+                    /*判断是否为对象*/
+                    if(rows.Rows instanceof Object){
+                        var rowsArgs=[]
+                        for(var i in rows.Rows){
+                            rowsArgs.push(rows.Rows[i])
+                        }
+                        rows.Rows=rowsArgs;
                     }
 
                     _self.grid.set({data:rows});
@@ -259,9 +266,9 @@
                     }
 
                 },
-                 error:function (XMLHttpRequest, textStatus, errorThrown) {
-                     console.log(XMLHttpRequest, textStatus, errorThrown,7747474);
-                 }
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.error(XMLHttpRequest, textStatus, errorThrown,"xhr_error");
+                }
             })
         },
 
@@ -269,30 +276,27 @@
         /*创建pager*/
         createTablePager:function(){
             var _self=this;
-            if(_self.ele.children(".pager").length==0){
-                _self.ele.append("<div class='pager'></div>");
+            var isPager=_self.opt.isPager!=undefined?_self.opt.isPager:true;
+            if(isPager ){
+                if(_self.ele.children(".pager").length==0){
+                    _self.ele.append("<div class='pager'></div>");
+                }
+
+                _self.ele.find(".pager")
+                    .pager(_self.opt.pagerConfig)
+                    .off("pager:switch")
+                    .on("pager:switch", function (event, index) {
+                        _self.trigger('changepage', event,index);
+                        _self.opt.reqData[_self.opt.currentPagerField]=index;
+                        _self.getTableData();
+                    })
             }
 
-            _self.ele.find(".pager")
-                .pager(_self.opt.pagerConfig)
-                .off("pager:switch")
-                .on("pager:switch", function (event, index) {
-                    _self.opt.reqData[_self.opt.currentPagerField]=index;
-                    _self.getTableData();
-                })
         },
 
 
         /*销毁grid*/
-        destroy:function () {
-
-        },
-
-        /*事件监听*/
-        handleEvent:function () {
-
-        }
-
+        destroy:function () {},
 
     })
 
