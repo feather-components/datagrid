@@ -46,7 +46,7 @@
                 return  '<input type ="checkbox" rowid ="' + row.id + '">';
             }},
             { display: '顾客', name: 'CustomerID', align: 'left' },
-            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:true},
+            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:false},
             { display: '联系人', name: 'ContactName' },
             { display: '地址', name: 'Address' },
             { display: '邮编', name: 'PostalCode',isSort:false },
@@ -54,24 +54,24 @@
             { display: '操作', name: 'do' ,render:function(){  return  "<input type='text'/>"}}
         ],
 
-//        source: {
-//            ajaxUrl:"./a.json" ,
-//            type:"post",
-//            requestData: {
-//                a:"qeqwe",
-//                id:"555",
-//                name:"55kai",
-//                iPager:4,
-//                iPerPage:"12"
-//            },
-//            dataRowsField:"List",
-//            dataTotalField:"Total",
-//            perPager:"iPerPage",
-//            currentPageField:"iPager",
-//            sortColField:"colNames",
-//            sortNameField:"sortNames"
-//        },
-        data:CustomersData2.Rows,
+        source: {
+            ajaxUrl:"./a.json" ,
+            type:"post",
+            requestData: {
+                a:"qeqwe",
+                id:"555",
+                name:"55kai",
+                iPager:4,
+                iPerPage:"12"
+            },
+            dataRowsField:"List",
+            dataTotalField:"Total",
+            perPager:"iPerPage",
+            currentPageField:"iPager",
+            sortColField:"colNames",
+            sortNameField:"sortNames"
+        },
+//        data:CustomersData2.Rows,
 
         height:700,
         children:{
