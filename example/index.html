@@ -46,7 +46,7 @@
                 return  '<input type ="checkbox" rowid ="' + row.id + '">';
             }},
             { display: '顾客', name: 'CustomerID', align: 'left' },
-            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:false},
+            { display: '公司名', name: 'CompanyName',align:'left' ,frozen:true},
             { display: '联系人', name: 'ContactName' },
             { display: '地址', name: 'Address' },
             { display: '邮编', name: 'PostalCode',isSort:false },
@@ -73,7 +73,7 @@
 //        },
         data:CustomersData2.Rows,
 
-//        height:500,
+        height:700,
         children:{
             showDetail:function(row, detailPanel,callback){
                 f_showOrder(row, detailPanel,callback);

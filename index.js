@@ -117,17 +117,29 @@
                 onAfterShowData:function(event,data){
 
                     /*增加排序的箭头*/
-                        _self.default.ligerOpt.columns.forEach(function(v,k){
-                            var sort=v.isSort;
-                            
-                            if(v.isSort){
-                                _self.ele.find(".l-grid-header-inner td").each(function(index,dom){
-                                    if(v.columnname==$(dom).attr("columnname")&&$(dom).find(".l-grid-hd-cell-sort").length==0){
-                                        $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
-                                    }
-                                });
-                            }
+                    _self.default.ligerOpt.columns.forEach(function(v,k){
+                        var sort=v.isSort;
+
+                        if(v.isSort){
+                            _self.ele.find(".l-grid-header-inner td").each(function(index,dom){
+                                if(v.columnname==$(dom).attr("columnname")&&$(dom).find(".l-grid-hd-cell-sort").length==0){
+                                    $(dom).find(".l-grid-hd-cell-inner").append('<span class="l-grid-hd-cell-sort l-grid-hd-cell-sort-asc">&nbsp;&nbsp;</span>');
+                                }
+                            });
+                        }
+                    });
+
+                    /*固定列时设置高度相等*/
+                    setTimeout(function () {
+                        $(".l-grid-body1").each(function(k,dom){
+                            var $dom=$(dom);
+                            var h=$dom.parents(".l-grid").first().find(".l-grid-body2").height();
+                            $dom.css({
+                                height:h+"px"
+                            })
                         });
+                    },0);
+
 
                     _self.trigger("aftershowdata",event,data);
                 },
