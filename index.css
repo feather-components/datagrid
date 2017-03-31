@@ -108,11 +108,13 @@
 {
     height:auto;overflow:hidden;
 }
+/*出去横向滚动条*/
 .l-grid-body
 {
     position: relative; width:100%;
     top: 0px;
-    left: 0px; overflow: auto;
+    left: 0px; overflow-y: auto;
+    overflow-x: hidden;
 }
 .l-grid-body-table
 {
@@ -299,7 +301,9 @@
 }
 .l-grid-detailpanel-inner
 {
-    overflow:auto; margin-bottom:2px;
+    overflow-y:auto;
+    overflow-x: hidden;
+    margin-bottom:2px;
 }
 
 .l-grid-row-alt .l-grid-row-cell
