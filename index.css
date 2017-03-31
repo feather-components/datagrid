@@ -609,15 +609,17 @@
     line-height: 36px;
 }
 
-.l-panel-body ::-webkit-scrollbar
-{
-width: 8px;
-height: 8px;
-background-color: #ddd;
+.l-panel-body ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #ddd;
 }
 .l-panel-body ::-webkit-scrollbar-thumb{
-background-color:#666 ;
+    background-color:#666 ;
     border-radius:5px;
+}
+.l-grid-header-inner{
+    background:#464e78 ;
 }
 /*.l-grid-body1{*/
 /*height: 100%!important;*/
