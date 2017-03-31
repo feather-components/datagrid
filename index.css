@@ -609,15 +609,16 @@
     line-height: 36px;
 }
 
-/*.l-panel-bwarp ::-webkit-scrollbar*/
-/*{*/
-/*width: 5px;*/
-/*height: 5px;*/
-/*background-color: #ddd;*/
-/*}*/
-/*.l-panel-bwarp ::-webkit-scrollbar-thumb{*/
-/*background-color:#666 ;*/
-/*}*/
+.l-panel-body ::-webkit-scrollbar
+{
+width: 8px;
+height: 8px;
+background-color: #ddd;
+}
+.l-panel-body ::-webkit-scrollbar-thumb{
+background-color:#666 ;
+    border-radius:5px;
+}
 /*.l-grid-body1{*/
 /*height: 100%!important;*/
 /*}*/
