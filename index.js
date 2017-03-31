@@ -75,7 +75,7 @@
                 pagerConfig:{
                     total: "",
                     current: "",
-                    showFirstBtn: option.showFirstBtn
+                    showFirstBtn: option.showFirstBtn!=undefined?option.showFirstBtn:true
                 }
             };
             if(option.source!=undefined){
