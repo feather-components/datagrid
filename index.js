@@ -75,8 +75,8 @@
                 pagerConfig:{
                     total: "",
                     current: "",
-                    showFirstBtn: false
-                },
+                    showFirstBtn: option.showFirstBtn
+                }
             };
             if(option.source!=undefined){
                 var sourceObj={

@@ -15,7 +15,7 @@
  * Author daomi 2015 [ gd_star@163.com ]
  *
  */
-// var $=jQuery=require("jquery");
+var $=jQuery=require("jquery");
 (function ($)
 {
     //ligerui 继承方法
