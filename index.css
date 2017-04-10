@@ -628,3 +628,16 @@
 /*.l-grid-body1{*/
 /*height: 100%!important;*/
 /*}*/
+
+
+/*ui bug处理*/
+.l-grid-body-table{
+    width:100%!important;
+}
+.l-grid-body{
+    overflow-x:auto
+}
+.l-grid-row-cell-inner{
+    margin-left: 0;
+
+}
