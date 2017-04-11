@@ -132,7 +132,8 @@
     overflow: auto;
     left: 0px;
     position: absolute;
-    z-index: 999; display:none;
+    z-index: 999;
+    display:none!important;
 }
 .l-grid-loading
 {
